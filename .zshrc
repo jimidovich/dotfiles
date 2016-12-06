@@ -3,6 +3,13 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 # added by Anaconda3 4.1.1 installer
 export PATH="/home/yiju/anaconda3/bin:$PATH"
 
+# QT path
+export QTDIR=/home/yiju/Qt5.7.0/5.7/gcc_64
+export QTIDEDIR=/home/yiju/Qt5.7.0/Tools/QtCreator/bin
+export PATH=$QTDIR/bin:$QTIDEDIR:$PATH 
+export MANPATH=$QTDIR/man:$MANPATH 
+export LD_LIBRARY_PATH=$QTDIR/lib:$LD_LIBRARY_PATH
+
 # Path to your oh-my-zsh installation.
 export ZSH=/home/yiju/.oh-my-zsh
 
@@ -32,7 +39,7 @@ RPROMPT="%T %w"
 # DISABLE_LS_COLORS="true"
 
 # Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
+DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
 # ENABLE_CORRECTION="true"
@@ -98,3 +105,21 @@ if [ -e ${XCAPE} ]; then
     xcape -e 'Caps_Lock=Escape'
     xcape -e 'Shift_R=parenright;Shift_L=parenleft'
 fi
+
+# powerline-shell
+#function powerline_precmd() {
+#    PS1="$(~/powerline-shell.py $? --shell zsh 2> /dev/null)"
+#}
+
+#function install_powerline_precmd() {
+#    for s in "${precmd_functions[@]}"; do
+#        if [ "$s" = "powerline_precmd" ]; then
+#           return
+#        fi
+#    done
+#    precmd_functions+=(powerline_precmd)
+#}
+                   
+#if [ "$TERM" != "linux" ]; then
+#    install_powerline_precmd
+#fi

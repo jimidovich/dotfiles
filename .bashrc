@@ -119,8 +119,16 @@ fi
 # added by Anaconda3 4.1.1 installer
 export PATH="/home/yiju/anaconda3/bin:$PATH"
 
-powerline-daemon -q
-POWERLINE_BASH_CONTINUATION=1
-POWERLINE_BASH_SELECT=1
-. ~/.local/lib/python3.5/site-packages/powerline/bindings/bash/powerline.sh
+#powerline-daemon -q
+#POWERLINE_BASH_CONTINUATION=1
+#POWERLINE_BASH_SELECT=1
+#. ~/.local/lib/python3.5/site-packages/powerline/bindings/bash/powerline.sh
 
+export QTDIR=/home/yiju/Qt5.7.0/5.7/gcc_64
+export QTIDEDIR=/home/yiju/Qt5.7.0/Tools/QtCreator/bin
+
+export PATH=$QTDIR/bin:$QTIDEDIR:$PATH 
+
+export MANPATH=$QTDIR/man:$MANPATH 
+
+export LD_LIBRARY_PATH=$QTDIR/lib:$LD_LIBRARY_PATH
