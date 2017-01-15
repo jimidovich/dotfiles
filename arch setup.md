@@ -23,4 +23,9 @@ sudo sh -c 'echo 0 > /sys/module/hid_apple/parameters/iso_layout'
 # toggle fn mode
 sudo sh -c 'echo 2 > /sys/module/hid_apple/parameters/fnmode'
 # echo 'my password' | sudo sh -c '...'
+
+# permanent
+# sudo vi /etc/modprobe.d/hid_apple.conf
+options hid_apple iso_layout=0
+options hid_apple fnmode=2
 ```
