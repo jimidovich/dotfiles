@@ -1,3 +1,20 @@
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'flazz/vim-colorschemes'
+
+call vundle#end()            " required
+
+filetype plugin on    " required
+
+
 " version: 8.2
 
 " ============================================================================
@@ -70,7 +87,7 @@ Plug 'jeetsukumaran/vim-indentwise'
 " operators, highlighting, run and ipdb breakpoints)
 Plug 'klen/python-mode'
 " Better autocompletion
-Plug 'Shougo/neocomplcache.vim'
+"Plug 'Shougo/neocomplcache.vim'
 " Snippets manager (SnipMate), dependencies, and snippets repo
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
@@ -174,7 +191,7 @@ syntax on
 
 " show line numbers
 set nu
-set rnu
+"set rnu
 
 " tab navigation mappings
 map tn :tabn<CR>
@@ -186,6 +203,17 @@ map <C-S-Right> :tabn<CR>
 imap <C-S-Right> <ESC>:tabn<CR>
 map <C-S-Left> :tabp<CR>
 imap <C-S-Left> <ESC>:tabp<CR>
+
+noremap <silent><leader>1 :tabn 1<CR>
+noremap <silent><leader>2 :tabn 2<CR>
+noremap <silent><leader>3 :tabn 3<CR>
+noremap <silent><leader>4 :tabn 4<CR>
+noremap <silent><leader>5 :tabn 5<CR>
+noremap <silent><leader>6 :tabn 6<CR>
+noremap <silent><leader>7 :tabn 7<CR>
+noremap <silent><leader>8 :tabn 8<CR>
+noremap <silent><leader>9 :tabn 9<CR>
+noremap <silent><leader>0 :tabn 10<CR>
 
 " navigate windows with meta+arrows
 map <M-Right> <c-w>l
@@ -200,6 +228,11 @@ map <c-l> <c-w>l
 map <c-h> <c-w>h
 map <c-k> <c-w>k
 map <c-j> <c-w>j
+
+map gl <c-w>l
+map gh <c-w>h
+map gk <c-w>k
+map gj <c-w>j
 
 " old autocomplete keyboard shortcut
 imap <C-J> <C-X><C-O>
@@ -218,17 +251,20 @@ nmap ,wr :Ack <cword><CR>
 
 " use 256 colors when possible
 if (&term =~? 'mlterm\|xterm\|xterm-256\|screen-256') || has('nvim')
-	let &t_Co = 256
-    colorscheme wombat256i
+    "let &t_Co = 256
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    set termguicolors
+    colorscheme monochrome
 else
-    colorscheme delek
+    colorscheme monochrome
 endif
 
 " colors for gvim
 if has('gui_running')
-    colorscheme wombat256
-    set guifont=Meslo\ LG\ S\ for\ Powerline\ 11
+    set guifont=xos4\ Terminess\ Powerline
     set guioptions-=T
+    colorscheme monochrome
 endif
 
 " when scrolling, keep cursor 3 lines away from screen border
@@ -289,6 +325,8 @@ map <F2> :TaskList<CR>
 
 " file finder mapping
 let g:ctrlp_map = ',e'
+" mix(files + mru + buffer) find
+nmap ,a :CtrlPMixed<CR>
 " tags (symbols) in current file finder mapping
 nmap ,g :CtrlPBufTag<CR>
 " tags (symbols) in all files finder mapping
@@ -319,6 +357,9 @@ let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/](\.git|\.hg|\.svn|node_modules)$',
   \ 'file': '\.pyc$\|\.pyo$',
   \ }
+
+"let g:ctrlp_max_files=0
+"let g:ctrlp_max_depth=40
 
 " Syntastic ------------------------------
 
@@ -444,7 +485,8 @@ map <Leader>k <Plug>(easymotion-k)
 
 " Slime
 let g:slime_target = "tmux"
-let g:slime_ipython = 1
+"let g:slime_ipython = 1
+let g:slime_python_ipython = 1
 nmap <c-j><c-j> <Plug>SlimeLineSend
 xmap <c-j><c-j> <Plug>SlimeRegionSend
 
@@ -462,13 +504,97 @@ set encoding=utf-8
 nnoremap ; :
 let mapleader=','
 
-hi Comment ctermfg=111
-hi pythonStatement ctermfg=120
-hi Conditional ctermfg=228
-hi Repeat ctermfg=228
-hi Number ctermfg=white
-hi Function ctermfg=34
-hi Operator ctermfg=172
-hi Exception ctermfg=1
+"hi Comment guifg=#9966ff
+hi String guifg=lightgreen
+hi Number guifg=red
+hi String ctermfg=lightgreen
+hi Number ctermfg=red
+"hi pythonStatement ctermfg=120
+"hi Conditional ctermfg=228
+"hi Repeat ctermfg=228
+"hi Number ctermfg=white
+"hi Function ctermfg=34
+"hi Operator ctermfg=172
+"hi Exception ctermfg=1
 
 "let g:tmuxline_preset = 'powerline'
+
+let g:ycm_python_binary_path='/home/yiju/venvs/py3/bin/python3'
+let g:ycm_global_ycm_extra_conf = '~/.vim/data/.ycm_extra_conf.py'
+
+"set background=dark
+set colorcolumn=120
+
+" make tabline in terminal mode
+"function! Vim_NeatTabLine()
+    "let s = ''
+    "for i in range(tabpagenr('$'))
+        "" select the highlighting
+        "if i + 1 == tabpagenr()
+            "let s .= '%#TabLineSel#'
+        "else
+            "let s .= '%#TabLine#'
+        "endif
+        "" set the tab page number (for mouse clicks)
+        "let s .= '%' . (i + 1) . 'T'
+        "" the label is made by MyTabLabel()
+        "let s .= ' %{Vim_NeatTabLabel(' . (i + 1) . ')} '
+    "endfor
+    "" after the last tab fill with TabLineFill and reset tab page nr
+    "let s .= '%#TabLineFill#%T'
+    "" right-align the label to close the current tab page
+    "if tabpagenr('$') > 1
+        "let s .= '%=%#TabLine#%999XX'
+    "endif
+    "return s
+"endfunc
+
+" get a single tab name
+function! Vim_NeatBuffer(bufnr, fullname)
+    let l:name = bufname(a:bufnr)
+    if getbufvar(a:bufnr, '&modifiable')
+        if l:name == ''
+            return '[No Name]'
+        else
+            if a:fullname
+                return fnamemodify(l:name, ':p')
+            else
+                return fnamemodify(l:name, ':t')
+            endif
+        endif
+    else
+        let l:buftype = getbufvar(a:bufnr, '&buftype')
+        if l:buftype == 'quickfix'
+            return '[Quickfix]'
+        elseif l:name != ''
+            if a:fullname
+                return '-'.fnamemodify(l:name, ':p')
+            else
+                return '-'.fnamemodify(l:name, ':t')
+            endif
+        else
+        endif
+        return '[No Name]'
+    endif
+endfunc
+
+"" get a single tab label
+"function! Vim_NeatTabLabel(n)
+    "let l:buflist = tabpagebuflist(a:n)
+    "let l:winnr = tabpagewinnr(a:n)
+    "let l:bufnr = l:buflist[l:winnr - 1]
+    "return Vim_NeatBuffer(l:bufnr, 0)
+"endfunc
+
+"" get a single tab label in gui
+"function! Vim_NeatGuiTabLabel()
+    "let l:num = v:lnum
+    "let l:buflist = tabpagebuflist(l:num)
+    "let l:winnr = tabpagewinnr(l:num)
+    "let l:bufnr = l:buflist[l:winnr - 1]
+    "return Vim_NeatBuffer(l:bufnr, 0)
+"endfunc
+
+"" setup new tabline, just like %M%t in macvim
+"set tabline=%!Vim_NeatTabLine()
+"set guitablabel=%{Vim_NeatGuiTabLabel()}
